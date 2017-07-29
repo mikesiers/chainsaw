@@ -7,6 +7,7 @@ algorithms.
 """
 import wattle
 import entro
+import DataCost as dc
 
 def gain_ratio_split(node, minimum_records):
   """Finds and returns the best split based on gain ratio.
@@ -30,12 +31,11 @@ def gain_ratio_split(node, minimum_records):
 
   # Iterate over every possible split.
   for split in node.get_possible_splits():
-    temp_node = node # This temp node gets split.
-    temp_node.split({return split})
 
     # Get the class support counts for each resulting child.
-    for child in temp_node:
-      child_supports.append(get_supports().values())
+    temp_node = node # This temp node gets split.
+    child_support_dicts = temp_node.get_split_supports({return split})
+    child_supports = [list(x.values()) for x in child_support_dicts]
 
     # Calculate the gain ratio for this split. If it's better than the best so
     # far, update the best split to be this split.
@@ -44,4 +44,49 @@ def gain_ratio_split(node, minimum_records):
       best_gain_ratio = gain_ratio
       best_split = split
 
-  return split
+  if best_gain_ratio > 0:
+    return best_split
+  else:
+    return None
+
+def cost_reduction_split(node, positive_class, cost_matrix):
+  """Finds and returns the best split based on expected cost.
+
+  Args:
+    node (wattle.Node): The node to calculate the best split for.
+    positive_class (string): The name of the class which is the positive class.
+    cost_matrix (dict): The cost matrix represented like: {'TP':1,'TN':0} etc.
+
+  Returns:
+    (wattle.Split_Test): The best split based on expected cost.
+
+  """
+
+  # Calculate the expected cost of the parent.
+  parent_num_positive = node.num_positive(positive_class)
+  parent_num_negative = node.num_negative(positive_class)
+  parent_cost = dc.expected_cost(num_positive, num_negative, cost_matrix)
+
+  # These values will get updated if a better split is found.
+  best_cost = float('inf')
+  best_split = None
+
+  # Iterate over every possible split.
+  for split in node.get_possible_splits():
+
+    # Get the class support counts for each resulting child.
+    temp_node = node # This temp node gets split.
+    child_support_dicts = temp_node.get_split_supports({return split})
+    child_supports = [list(x.values()) for x in child_support_dicts]
+
+    # If the cost of this split is better than the current best, update the
+    # current best split to be this split.
+    split_cost = dc.expected_cost_after_split(child_supports, cost_matrix)
+    if split_cost < best_cost:
+      best_cost = split_cost
+      best_split = split
+  
+  if best_cost < parent_cost:
+    return best_split
+  else:
+    return None
