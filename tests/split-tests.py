@@ -9,7 +9,7 @@ class test_split_functions(unittest.TestCase):
     # numerical attribute.
     dataframe = pd.read_csv('data/LOC_SDP.csv')
     test = gain_ratio_split(Node(data=dataframe), 2)
-    self.assertEqual(test, Split_Test('numerical', 'LOC', 73.5)
+    self.assertEqual(test, Split_Test('numerical', 'LOC', 73.5))
 
     # Test that the correct best split is found for a dataset with one
     # categorical attribute.
@@ -21,13 +21,13 @@ class test_split_functions(unittest.TestCase):
     # attribute and a categorical attribute.
     dataframe = pd.read_csv('data/Language_LOC_SDP.csv')
     test = gain_ratio_split(Node(data=dataframe), 2)
-    self.assertEqual(test, Split_Test('numerical', 'LOC', 73.5)
+    self.assertEqual(test, Split_Test('numerical', 'LOC', 73.5))
 
     # Test that the correct best split is found when minimum_records is
     # changed.
     dataframe = pd.read_csv('data/LOC_SDP.csv')
     test = gain_ratio_split(Node(data=dataframe), 7)
-    self.assertEqual(test, Split_Test('numerical', 'LOC', 69)
+    self.assertEqual(test, Split_Test('numerical', 'LOC', 69))
 
   def test_cost_reduction(self):
     # Define a cost matrix and the positive class for use in testing.
@@ -39,7 +39,7 @@ class test_split_functions(unittest.TestCase):
     dataframe = pd.read_csv('data/LOC_SDP.csv')
     node = Node(data=dataframe)
     test = cost_reduction_split(node, positive_class, cost_matrix)
-    self.assertEqual(test, Split_Test('numerical', 'LOC', 73.5)
+    self.assertEqual(test, Split_Test('numerical', 'LOC', 73.5))
                                                                                 
     # Test that the correct best split is found for a dataset with one
     # categorical attribute.
@@ -53,7 +53,7 @@ class test_split_functions(unittest.TestCase):
     dataframe = pd.read_csv('data/Language_LOC_SDP.csv')
     node = Node(data=dataframe)
     test = cost_reduction_split(node, positive_class, cost_matrix)
-    self.assertEqual(test, Split_Test('numerical', 'LOC', 73.5)
+    self.assertEqual(test, Split_Test('numerical', 'LOC', 73.5))
 
 if __name__ == '__main__':
     unittest.main(exit=False)
