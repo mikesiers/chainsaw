@@ -34,7 +34,7 @@ def gain_ratio_split(node, minimum_records):
 
     # Get the class support counts for each resulting child.
     temp_node = node # This temp node gets split.
-    child_support_dicts = temp_node.get_split_supports({return split})
+    child_support_dicts = temp_node.get_split_supports(lambda : split)
     child_supports = [list(x.values()) for x in child_support_dicts]
 
     # Calculate the gain ratio for this split. If it's better than the best so
@@ -76,7 +76,7 @@ def cost_reduction_split(node, positive_class, cost_matrix):
 
     # Get the class support counts for each resulting child.
     temp_node = node # This temp node gets split.
-    child_support_dicts = temp_node.get_split_supports({return split})
+    child_support_dicts = temp_node.get_split_supports(lambda : split)
     child_supports = [list(x.values()) for x in child_support_dicts]
 
     # If the cost of this split is better than the current best, update the
