@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module chainsaw</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>chainsaw</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/michael/Career/Projects/chainsaw/src/chainsaw.py">/Users/michael/Career/Projects/chainsaw/src/chainsaw.py</a></font></td></tr></table>
+    <p><tt>chainsaw.py&nbsp;:&nbsp;Decision&nbsp;Tree&nbsp;Splitting&nbsp;Functions<br>
+&nbsp;<br>
+This&nbsp;module&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;find&nbsp;the&nbsp;best&nbsp;split&nbsp;for&nbsp;some&nbsp;data&nbsp;based&nbsp;on&nbsp;several<br>
+splitting&nbsp;criteria.&nbsp;It&nbsp;is&nbsp;mainly&nbsp;intended&nbsp;for&nbsp;use&nbsp;in&nbsp;machine&nbsp;learning<br>
+algorithms.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="datacost.html">datacost</a><br>
+</td><td width="25%" valign=top><a href="entro.html">entro</a><br>
+</td><td width="25%" valign=top><a href="wattle.html">wattle</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-cost_reduction_split"><strong>cost_reduction_split</strong></a>(node, positive_class, cost_matrix)</dt><dd><tt>Finds&nbsp;and&nbsp;returns&nbsp;the&nbsp;best&nbsp;split&nbsp;based&nbsp;on&nbsp;expected&nbsp;cost.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;node&nbsp;(wattle.Node):&nbsp;The&nbsp;node&nbsp;to&nbsp;calculate&nbsp;the&nbsp;best&nbsp;split&nbsp;for.<br>
+&nbsp;&nbsp;positive_class&nbsp;(string):&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;class&nbsp;which&nbsp;is&nbsp;the&nbsp;positive&nbsp;class.<br>
+&nbsp;&nbsp;cost_matrix&nbsp;(dict):&nbsp;The&nbsp;cost&nbsp;matrix&nbsp;represented&nbsp;like:&nbsp;{'TP':1,'TN':0}&nbsp;etc.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;(wattle.Split_Test):&nbsp;The&nbsp;best&nbsp;split&nbsp;based&nbsp;on&nbsp;expected&nbsp;cost.</tt></dd></dl>
+ <dl><dt><a name="-gain_ratio_split"><strong>gain_ratio_split</strong></a>(node, minimum_records)</dt><dd><tt>Finds&nbsp;and&nbsp;returns&nbsp;the&nbsp;best&nbsp;split&nbsp;based&nbsp;on&nbsp;gain&nbsp;ratio.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;node&nbsp;(wattle.Node):&nbsp;The&nbsp;node&nbsp;to&nbsp;calculate&nbsp;the&nbsp;best&nbsp;split&nbsp;for.<br>
+&nbsp;&nbsp;minimum_records&nbsp;(Number):&nbsp;The&nbsp;minimum&nbsp;number&nbsp;of&nbsp;child&nbsp;records.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;(wattle.Split_Test):&nbsp;The&nbsp;best&nbsp;split&nbsp;based&nbsp;on&nbsp;gain&nbsp;ratio.</tt></dd></dl>
+</td></tr></table>
+</body></html>
