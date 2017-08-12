@@ -7,7 +7,7 @@ algorithms.
 """
 import wattle
 import entro
-import DataCost as dc
+import datacost as dc
 
 def gain_ratio_split(node, minimum_records):
   """Finds and returns the best split based on gain ratio.
@@ -26,16 +26,24 @@ def gain_ratio_split(node, minimum_records):
   best_split = None
 
   # Get the support values for the passed node. This is used to measure the
-  # original entropy.
-  parent_supports = node.get_supports().values()
+  # original entropy. The entro module requires the supports to be a list, not
+  # a dict. It also requires the removal of zero-values for supports. 
+  parent_supports = node.class_supports
+  parent_supports = [x for x in parent_supports.values() if x != 0]
 
   # Iterate over every possible split.
   for split in node.get_possible_splits():
 
     # Get the class support counts for each resulting child.
     temp_node = node # This temp node gets split.
-    child_support_dicts = temp_node.get_split_supports(lambda : split)
+    child_support_dicts = temp_node.get_split_supports(split_test = split)
     child_supports = [list(x.values()) for x in child_support_dicts]
+    if any(sum(supports) < minimum_records for supports in child_supports):
+      continue
+
+    # The entro module requires the zero support values to be removed.
+    for i in range(len(child_supports)):
+      child_supports[i] = [x for x in child_supports[i] if x != 0]
 
     # Calculate the gain ratio for this split. If it's better than the best so
     # far, update the best split to be this split.
@@ -61,10 +69,9 @@ def cost_reduction_split(node, positive_class, cost_matrix):
     (wattle.Split_Test): The best split based on expected cost.
 
   """
-
   # Calculate the expected cost of the parent.
-  parent_num_positive = node.num_positive(positive_class)
-  parent_num_negative = node.num_negative(positive_class)
+  num_positive = node.num_positive()
+  num_negative = node.num_negative()
   parent_cost = dc.expected_cost(num_positive, num_negative, cost_matrix)
 
   # These values will get updated if a better split is found.
@@ -75,9 +82,7 @@ def cost_reduction_split(node, positive_class, cost_matrix):
   for split in node.get_possible_splits():
 
     # Get the class support counts for each resulting child.
-    temp_node = node # This temp node gets split.
-    child_support_dicts = temp_node.get_split_supports(lambda : split)
-    child_supports = [list(x.values()) for x in child_support_dicts]
+    child_supports = node.get_split_supports(split, posneg=True)
 
     # If the cost of this split is better than the current best, update the
     # current best split to be this split.
